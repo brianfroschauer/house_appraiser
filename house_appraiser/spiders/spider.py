@@ -19,7 +19,6 @@ class HouseAppraiserSpider(CrawlSpider):
     def parse_item(self, response):
         item = HouseAppraiserItem()
 
-        item['titulo'] = response.xpath('normalize-space(//div[@class="section-title"]/h1)').extract()
         item['precio'] = response.xpath('normalize-space(//*[@id="sidebar-price-container"]/div/div[1]/div[2])').extract()
         item['superficie_total'] = response.xpath('normalize-space(//*[@id="article-container"]/section[1]/ul/li[1]/b)').extract()
         item['superficie_cubierta'] = response.xpath('normalize-space(//*[@id="article-container"]/section[1]/ul/li[2]/b)').extract()
@@ -35,7 +34,7 @@ class HouseAppraiserSpider(CrawlSpider):
         item['luminosidad'] = response.xpath('normalize-space(//*[@id="article-container"]/section[1]/ul/li[12]/b)').extract()
 
         self.item_count += 1
-        if self.item_count > 2:
+        if self.item_count > 1000:
             raise CloseSpider('item_exceeded')
         yield item
 
