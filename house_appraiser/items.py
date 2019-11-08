@@ -11,7 +11,6 @@ import scrapy
 class HouseAppraiserItem(scrapy.Item):
     # define the fields for your item here like:
 
-    titulo = scrapy.Field()
     precio = scrapy.Field()
     superficie_total = scrapy.Field()
     superficie_cubierta = scrapy.Field()
@@ -21,7 +20,6 @@ class HouseAppraiserItem(scrapy.Item):
     dormitorios = scrapy.Field()
     toilettes = scrapy.Field()
     antiguedad = scrapy.Field()
-    disposicion = scrapy.Field()
     orientacion = scrapy.Field()
     estado = scrapy.Field()
     luminosidad = scrapy.Field()
