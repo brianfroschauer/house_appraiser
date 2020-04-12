@@ -23,47 +23,43 @@ class HouseAppraiserSpider(CrawlSpider):
 
         for item in items:
 
-            house['precio'] = item.xpath('/html/body/div[1]/main/div/div/aside/div/div[1]/div/div[1]/div[2]/span/text()').extract()
+            house['price'] = item\
+                .xpath('/html/body/div[1]/main/div/div/aside/div/div[1]/div/div[1]/div[2]/span/text()')\
+                .extract()
 
             for i in range(1, 12):
 
                 label = item.xpath('li['+str(i)+']/span/text()').extract_first()
 
                 if label == 'Superficie total':
-                    house['superficie_total'] = item.xpath('li['+str(i)+']/b/text()').extract_first()
+                    house['total_surface'] = item.xpath('li['+str(i)+']/b/text()').extract_first()
 
                 elif label == 'Superficie cubierta':
-                    house['superficie_cubierta'] = item.xpath('li['+str(i)+']/b/text()').extract_first()
+                    house['covered_surface'] = item.xpath('li['+str(i)+']/b/text()').extract_first()
 
                 elif label == 'Ambientes':
-                    house['ambientes'] = item.xpath('li['+str(i)+']/b/text()').extract_first()
+                    house['rooms'] = item.xpath('li['+str(i)+']/b/text()').extract_first()
 
                 elif label == 'Baños':
-                    house['baños'] = item.xpath('li['+str(i)+']/b/text()').extract_first()
+                    house['bathrooms'] = item.xpath('li['+str(i)+']/b/text()').extract_first()
 
                 elif label == 'Cochera':
-                    house['cocheras'] = item.xpath('li['+str(i)+']/b/text()').extract_first()
+                    house['garages'] = item.xpath('li['+str(i)+']/b/text()').extract_first()
 
                 elif label == 'Dormitorios':
-                    house['dormitorios'] = item.xpath('li['+str(i)+']/b/text()').extract_first()
+                    house['bedrooms'] = item.xpath('li['+str(i)+']/b/text()').extract_first()
 
                 elif label == 'Toilette':
                     house['toilettes'] = item.xpath('li['+str(i)+']/b/text()').extract_first()
 
                 elif label == 'Antigüedad':
-                    house['antiguedad'] = item.xpath('li['+str(i)+']/b/text()').extract_first()
+                    house['antiquity'] = item.xpath('li['+str(i)+']/b/text()').extract_first()
 
-                elif label == 'Orientación':
-                    house['orientacion'] = item.xpath('li['+str(i)+']/b/text()').extract_first()
-
-                elif label == 'Estado del inmueble':
-                    house['estado'] = item.xpath('li['+str(i)+']/b/text()').extract_first()
-
-                elif label == 'Luminosidad':
-                    house['luminosidad'] = item.xpath('li['+str(i)+']/b/text()').extract_first()
+                house['zone'] = item.xpath('//*[@id="article-container"]/hgroup/h2[2]/span').extract_first()
 
         self.item_count += 1
-        if self.item_count > 5000:
+        print(self.item_count)
+        if self.item_count > 5:
             raise CloseSpider('item_exceeded')
         yield house
 

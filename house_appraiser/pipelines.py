@@ -23,7 +23,18 @@ class HouseAppraiserPipeline(object):
         file = open('%s_items.csv' % spider.name, 'w+b')
         self.files[spider] = file
         self.exporter = CsvItemExporter(file)
-        self.exporter.fields_to_export = ['precio', 'superficie_total', 'superficie_cubierta', 'ambientes', 'baños', 'cocheras', 'dormitorios', 'toilettes', 'antiguedad', 'orientacion', 'estado', 'luminosidad']
+        self.exporter.fields_to_export = [
+            'price',
+            'total_surface',
+            'covered_surface',
+            'rooms',
+            'bathrooms',
+            'garages',
+            'bedrooms',
+            'toilettes',
+            'antiquity',
+            'zone'
+        ]
         self.exporter.start_exporting()
 
     def spider_closed(self, spider):
