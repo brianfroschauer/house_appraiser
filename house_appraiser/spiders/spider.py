@@ -22,14 +22,7 @@ class HouseAppraiserSpider(CrawlSpider):
         items = response.xpath('/html/body/div[2]/main/div/div/article/div/section[1]/ul')
 
         for item in items:
-
-<<<<<<< HEAD
-            house['price'] = item\
-                .xpath('/html/body/div[1]/main/div/div/aside/div/div[1]/div/div[1]/div[2]/span/text()')\
-                .extract()
-=======
             house['price'] = item.xpath('/html/body/div[2]/main/div/div/aside/div/div[1]/div/div[1]/div[2]/span/text()').extract()
->>>>>>> b4582d869c80d8e0b4fb2f5c28a95ac960ad96b4
 
             for i in range(1, 12):
 
@@ -59,20 +52,12 @@ class HouseAppraiserSpider(CrawlSpider):
                 elif label == 'Antigüedad':
                     house['antiquity'] = item.xpath('li['+str(i)+']/b/text()').extract_first()
 
-<<<<<<< HEAD
-                house['zone'] = item.xpath('//*[@id="article-container"]/hgroup/h2[2]/span').extract_first()
-
-        self.item_count += 1
-        print(self.item_count)
-        if self.item_count > 5:
-=======
                 house['zone'] = item.xpath(
                     '/html/body/div[2]/main/div/div/article/div/hgroup/h2[2]/span/text()'
                 ).extract_first()
 
         self.item_count += 1
         if self.item_count > 10000:
->>>>>>> b4582d869c80d8e0b4fb2f5c28a95ac960ad96b4
             raise CloseSpider('item_exceeded')
         yield house
 
